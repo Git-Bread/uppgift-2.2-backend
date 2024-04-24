@@ -72,8 +72,10 @@ async function remove() {
     }).then(response => response.json());
     if (res.error) {
         errLog(res);
+        return;
     }
     populate();
+    clearErr();
 }
 
 //simple database get to populate the tables
@@ -109,9 +111,11 @@ async function update() {
     //errors
     if (res.error) {
         errLog(res);
+        return;
     }
     form?.reset()
     populate();
+    clearErr();
 }
 
 //adds
@@ -139,18 +143,18 @@ async function add() {
     //if errors
     if (res.error) {
         errLog(res);
+        return;
     }
     form?.reset();
     populate();
+    clearErr();
 }
 
 //not sure what format to use here to be honest hence any
 //error manager that shoves all errors into an div which will then display the errors
 function errLog(objArr: any) {
     let container = document.getElementById("error");
-    while (container?.children[1]) {
-        container?.removeChild(container.lastChild as HTMLElement);
-    }
+    clearErr();
     for (let index = 0; index < objArr.error.length; index++) {
         console.log(objArr.error[index]);
         let element = document.createElement("p");
@@ -159,6 +163,14 @@ function errLog(objArr: any) {
     }
 }
 
+
+//clears errors
+function clearErr() {
+    let container = document.getElementById("error");
+    while (container?.children[0]) {
+        container?.removeChild(container.lastChild as HTMLElement);
+    }
+}
 
 //making sure its all loaded before running, i miss c++
 window.onload = function() {
