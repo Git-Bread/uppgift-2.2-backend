@@ -4,20 +4,17 @@ let getData = "/data";
 //some startup logic to get the whole thing started
 function startup() {
 
-    //adds functionality if page is right
+    //adds functionality if page is right, with prevent of default submit behavior to stop reloading but keep required functionality
     let removeButton = document.getElementById("removeButton");
     if (removeButton != null) {
-        console.log("ran");
         removeButton?.addEventListener("click", () => remove());   
     }
     let addButton = document.getElementById("addButton");
     if (addButton != null) {
-        console.log("ran");
         addButton?.addEventListener("click", () => add());   
     }
     let updateButton = document.getElementById("updateButton");
     if (updateButton != null) {
-        console.log("ran");
         updateButton?.addEventListener("click", () => update());   
     }
     populate();
@@ -71,7 +68,9 @@ async function remove() {
             'Content-Type': 'application/json'
         }
     }).then(response => response.json());
-    console.log(res);
+    if (res.error) {
+        errLog(res);
+    }
     populate();
 }
 
@@ -82,15 +81,62 @@ async function ask(add: string){
 }
 
 async function update() {
-    let form = document.getElementById("update");
-    console.log(form);
+    let form = document.getElementById("update") as HTMLFormElement;
+    let obj = <HTMLInputElement>document.getElementById("opt");
+    let newEntry = {
+        id: obj?.value,
+        companyname: form?.getElementsByTagName("input")[0].value,
+        jobtitle: form?.getElementsByTagName("input")[1].value,
+        startdate: form?.getElementsByTagName("input")[2].value,
+        enddate: form?.getElementsByTagName("input")[3].value
+    };
+    let res = await fetch(url + "/update", {
+        method: 'PUT',
+        body: JSON.stringify(newEntry),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json());
+    if (res.error) {
+        errLog(res);
+    }
+    form?.reset()
+    populate();
 }
 
 async function add() {
-    let form = document.getElementById("add");
-    console.log(form);
+    let form = document.getElementById("add") as HTMLFormElement;
+    let newEntry = {
+        id: form?.getElementsByTagName("input")[0].value,
+        companyname: form?.getElementsByTagName("input")[1].value,
+        jobtitle: form?.getElementsByTagName("input")[2].value,
+        startdate: form?.getElementsByTagName("input")[3].value,
+        enddate: form?.getElementsByTagName("input")[4].value
+    };
+    let res = await fetch(url + "/add", {
+        method: 'POST',
+        body: JSON.stringify(newEntry),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json());
+    if (res.error) {
+        errLog(res);
+    }
+    form?.reset();
+    populate();
 }
 
+//not sure what format to use here to be honest hence any
+function errLog(objArr: any) {
+    let container = document.getElementById("error");
+    for (let index = 0; index < objArr.error.length; index++) {
+        console.log(objArr.error[index]);
+        let element = document.createElement("p");
+        element.innerHTML = objArr.error[index];
+        container?.append(element);     
+    }
+}
 
 
 //making sure its all loaded before running, i miss c++

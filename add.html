@@ -27,7 +27,7 @@
     </section>
     <div id="error"></div>
     <section>
-        <form id="add">
+        <form id="add" onsubmit="return false;"> 
             <h2>Nytt Inlägg</h2>
             <label for="id">Id</label>
             <input type="number" name="id" id="id" maxlength="16"  required>
@@ -40,13 +40,13 @@
             <label for="enddate">Slutdatum</label>
             <input type="date" name="enddate" id="enddate" maxlength="8" required>
             <div>
-                <button type="button" id="addButton">Klar!</button>
+                <button type="submit" id="addButton">Klar!</button>
                 <button type="reset" id="resetAdd">Rensa</button>
             </div>
         </form>
     </section>
     <section>
-        <form id="update">
+        <form id="update" onsubmit="return false;">
             <h2>Uppdatera Inlägg</h2>
             <label for="opt">ID</label>
             <select name="opt" id="opt">
@@ -60,7 +60,7 @@
             <label for="enddate">Slutdatum</label>
             <input type="date" name="enddate" id="enddateEdit" maxlength="8" required>
             <div>
-                <button type="button" id="updateButton">Ändra Inlägg</button>
+                <button type="submit" id="updateButton">Ändra Inlägg</button>
                 <button type="reset" id="resetUpdate">Rensa</button>
             </div>
         </form>
