@@ -59,7 +59,9 @@ async function populate() {
     }
 }
 
+//removes
 async function remove() {
+    //gets id and sends that to delete
     let obj = <HTMLInputElement>document.getElementById("opt");
     let res = await fetch(url + "/remove", {
         method: 'DELETE',
@@ -74,15 +76,19 @@ async function remove() {
     populate();
 }
 
+//simple database get to populate the tables
 async function ask(add: string){
     let requestData = await fetch(url + add);
     let output = await requestData.json();
     return output;
 }
 
+//update
 async function update() {
     let form = document.getElementById("update") as HTMLFormElement;
     let obj = <HTMLInputElement>document.getElementById("opt");
+
+    //object to update, gets id from select
     let newEntry = {
         id: obj?.value,
         companyname: form?.getElementsByTagName("input")[0].value,
@@ -90,6 +96,8 @@ async function update() {
         startdate: form?.getElementsByTagName("input")[2].value,
         enddate: form?.getElementsByTagName("input")[3].value
     };
+
+    //uses PUT
     let res = await fetch(url + "/update", {
         method: 'PUT',
         body: JSON.stringify(newEntry),
@@ -97,6 +105,8 @@ async function update() {
             'Content-Type': 'application/json'
         }
     }).then(response => response.json());
+
+    //errors
     if (res.error) {
         errLog(res);
     }
@@ -104,8 +114,11 @@ async function update() {
     populate();
 }
 
+//adds
 async function add() {
     let form = document.getElementById("add") as HTMLFormElement;
+
+    //new object to add, could probaly be a interface but its already done
     let newEntry = {
         id: form?.getElementsByTagName("input")[0].value,
         companyname: form?.getElementsByTagName("input")[1].value,
@@ -113,6 +126,8 @@ async function add() {
         startdate: form?.getElementsByTagName("input")[3].value,
         enddate: form?.getElementsByTagName("input")[4].value
     };
+
+    //post method for adding to database
     let res = await fetch(url + "/add", {
         method: 'POST',
         body: JSON.stringify(newEntry),
@@ -120,6 +135,8 @@ async function add() {
             'Content-Type': 'application/json'
         }
     }).then(response => response.json());
+
+    //if errors
     if (res.error) {
         errLog(res);
     }
@@ -128,8 +145,12 @@ async function add() {
 }
 
 //not sure what format to use here to be honest hence any
+//error manager that shoves all errors into an div which will then display the errors
 function errLog(objArr: any) {
     let container = document.getElementById("error");
+    while (container?.children[1]) {
+        container?.removeChild(container.lastChild as HTMLElement);
+    }
     for (let index = 0; index < objArr.error.length; index++) {
         console.log(objArr.error[index]);
         let element = document.createElement("p");
