@@ -6,6 +6,7 @@
     <meta name="description" content="Labboration 2.2">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.scss">
+    <script src="javascript.ts"></script>
 </head>
 <body>
     <header>
@@ -17,30 +18,50 @@
         <table>
             <tr>
                 <th id="head0">id</th>
-                <th id="head1">Kurskod</th>
-                <th id="head2">Namn</th>
-                <th id="head3">Progression</th>
-                <th id="head4">Url</th>
+                <th id="head1">Företagsnamn</th>
+                <th id="head2">Arbetsroll</th>
+                <th id="head3">Startdatum</th>
+                <th id="head4">Slutdatum</th>
             </tr>
         </table>
     </section>
     <div id="error"></div>
     <section>
-        <form method="post">
-            <h2>Ny Kurs</h2>
+        <form id="add">
+            <h2>Nytt Inlägg</h2>
             <label for="id">Id</label>
-            <input type="number" name="id" id="id" maxlength="8"  required>
-            <label for="code">Kurskod</label>
-            <input type="text" name="code" id="code" maxlength="60" required>
-            <label for="newName">Kursnamn</label>
-            <input type="text" name="newName" id="newName" maxlength="60" required>
-            <label for="progression">Progression</label>
-            <input type="text" name="progression" id="progression" maxlength="1" required>
-            <label for="sylla">Syllabus</label>
-            <input type="text" name="sylla" id="sylla" maxlength="80" required>
+            <input type="number" name="id" id="id" maxlength="16"  required>
+            <label for="name">Företagsnamn</label>
+            <input type="text" name="name" id="name" maxlength="20" autocomplete="on" required>
+            <label for="role">Arbetsroll</label>
+            <input type="text" name="role" id="role" maxlength="20" required>
+            <label for="startdate">Startdatum</label>
+            <input type="date" name="startdate" id="startdate" maxlength="8" required>
+            <label for="enddate">Slutdatum</label>
+            <input type="date" name="enddate" id="enddate" maxlength="8" required>
             <div>
-                <button type="submit" id="newCourseSubmit">Ny Kurs</button>
-                <button type="reset" id="resetCourseNew">Rensa</button>
+                <button type="button" id="addButton">Klar!</button>
+                <button type="reset" id="resetAdd">Rensa</button>
+            </div>
+        </form>
+    </section>
+    <section>
+        <form id="update">
+            <h2>Uppdatera Inlägg</h2>
+            <label for="opt">ID</label>
+            <select name="opt" id="opt">
+            </select>
+            <label for="name">Företagsnamn</label>
+            <input type="text" name="name" id="nameEdit" maxlength="20" autocomplete="on" required>
+            <label for="role">Arbetsroll</label>
+            <input type="text" name="role" id="roleEdit" maxlength="20" required>
+            <label for="startdate">Startdatum</label>
+            <input type="date" name="startdate" id="startdateEdit" maxlength="8" required>
+            <label for="enddate">Slutdatum</label>
+            <input type="date" name="enddate" id="enddateEdit" maxlength="8" required>
+            <div>
+                <button type="button" id="updateButton">Ändra Inlägg</button>
+                <button type="reset" id="resetUpdate">Rensa</button>
             </div>
         </form>
     </section>

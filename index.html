@@ -19,20 +19,20 @@
             <tr>
                 <th id="head0">id</th>
                 <th id="head1">Företagsnamn</th>
-                <th id="head2">Företagstitel</th>
+                <th id="head2">Arbetsroll</th>
                 <th id="head3">Startdatum</th>
                 <th id="head4">Slutdatum</th>
             </tr>
         </table>
     </section>
     <section>
-        <form method="post" action="/remove">
-            <h2>Ta Bort kurs</h2>
-            <label for="options">Kurskod</label>
-            <select name="options" id="opt">
+        <form>
+            <h2>Ta Bort Inlägg</h2>
+            <label for="opt">ID</label>
+            <select name="opt" id="opt">
             </select>
             <div>
-                <button type="submit" id="updateCourseSubmit">Ta bort Kurs</button>
+                <button type="button" id="removeButton">Ta bort</button>
             </div>
         </form>
     </section>
