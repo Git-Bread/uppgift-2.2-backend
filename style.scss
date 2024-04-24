@@ -92,8 +92,9 @@ body {
         }
     }
     #about {
-        width: clamp(200px, 80%, 1600px);
+        width: clamp(200px, 80%, 1000px);
         div {
+            width: clamp(200px, 80%, 75ch);
             margin: auto;
             border: $border;
             padding: 1em;
